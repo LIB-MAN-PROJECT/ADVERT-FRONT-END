@@ -11,7 +11,7 @@ const K = {
     {
       icon: <FcAdvertising />,
       text: "Explore Our Ads",
-      path: "/dashboard/adverts",
+      path: "/dashboard/vendor-ads",
     },
     {
       icon: <FormInput />,
