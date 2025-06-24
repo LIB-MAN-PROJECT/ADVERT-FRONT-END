@@ -1,0 +1,18 @@
+import { apiClient } from "./config";
+
+//get all adverts
+export const apiFetchAdverts = async () => apiClient.get("/adverts");
+
+//add an advert
+export const apiCreateAd = async (payload) => apiClient.post("/adverts");
+
+//get a sinle ad
+export const apiFetchSingleAd = async (id) => apiClient.get(`/adverts/{id}`);
+
+//edit ad
+export const apiEditAd = async (id, payload) =>
+  apiClient.put(`/adverts/${id}`, payload);
+
+//delete ad
+export const apiDeleteAd = async (id) =>
+  apiClientClient.delete(`/adverts/${id}`);

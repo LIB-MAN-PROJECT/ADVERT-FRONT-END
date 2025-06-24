@@ -1,23 +1,20 @@
 import { FormInput, HomeIcon } from "lucide-react";
 import { FcAdvertising } from "react-icons/fc";
+import {FaHome} from "react-icons/fa"
 
 const K = {
   NAVLINKS: [
-    {
-      icon: <HomeIcon />,
-      text: "Overview",
-      path: "/dashboard",
-    },
-    {
-      icon: <FcAdvertising />,
-      text: "Explore Our Ads",
-      path: "/dashboard/vendor-ads",
-    },
-    {
-      icon: <FormInput />,
-      text: "Want To Create An Ad?",
-      path: "/dashboard/create-ad",
-    },
+       {
+            icon: <FaHome/>,
+            text: "Overview",
+            path: "/dashboard", 
+        },
+        {
+            icon: <FaHome/>,
+            text: "All Adverts",
+            path: "/dashboard/adverts",
+        },
+  
   ],
   USERLINKS: [
     {

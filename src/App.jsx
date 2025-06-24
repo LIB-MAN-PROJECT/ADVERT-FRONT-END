@@ -19,6 +19,7 @@ import Login from "./pages/auth/Login"
 import SignUp from "./pages/auth/SignUp"
 import ForgotPassword from "./pages/auth/ForgotPassword"
 import Policy from "./pages/auth/Policy"
+import Footer from "./pages/user/components/Footer";
 
 function App() {
   const router = createBrowserRouter([
@@ -47,7 +48,7 @@ function App() {
           element: <Overview />,
         },
         {
-          path: "vendor-ads",
+          path: "ads",
           element: <VendorAds />,
         },
         {
@@ -56,13 +57,19 @@ function App() {
         },
 
         {
-          path: "edit-ad/:id",
+          path: "dashboard-ad/:id",
           element: <EditAd />,
         },
         {
-          path: "ad-details/:id",
+          path: "dashboard-details/:id",
           elememt: <AdDetails />,
         },
+        {
+          path:"policy",
+          element:<Policy/>,
+        }
+
+  
       ],
     },
     {
@@ -99,6 +106,10 @@ function App() {
         {
           path: "user-contact",
           element: <UserContact />,
+        },
+        {
+          path: "footer",
+          element:<Footer/>
         },
       ],
       // element: <Overview />,
