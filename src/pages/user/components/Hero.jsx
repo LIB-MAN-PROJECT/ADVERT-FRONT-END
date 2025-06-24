@@ -1,35 +1,36 @@
-
-import background from "../../../assets/background.jpg";
+import React from "react";
+import backgroundVideo from "../../../assets/background.mp4.mp4"; // ✅ adjust path if needed
 
 const Hero = () => {
   return (
-    <section className="relative h-[85vh] w-full bg-fixed ">
-      <img
-        src={background}
-        alt="Delicious food hero"
-        className="absolute inset-0 w-full h-full object-cover"
+    <div className="relative w-full h-screen overflow-hidden">
+      {/* Background Video */}
+      <video
+        className="absolute top-0 left-0 w-full h-full object-cover"
+        src={backgroundVideo}
+        autoPlay
+        loop
+        muted
+        playsInline
       />
 
-      <div className="absolute inset-0 bg-"></div>
+      {/* Overlay */}
+      <div className="absolute inset-0 bg-black/60 z-10" />
 
-      <div className="relative z-10 flex items-center justify-center h-full px-6">
-        <div className="text-center text-white max-w-2xl">
-          <h1 className="text-4xl md:text-5xl font-extrabold mb-4 text-white">
-            Recipes from Around the World, Delivered to You
-          </h1>
-          <p className="text-lg md:text-xl mb-6">
-            Learn from top chefs, explore authentic meals, and bring
-            international flavors home.
-          </p>
-          <a
-            href="/signup"
-            className=" animate-bounce inline-block bg-amber-600 hover:bg-amber-700 text-white px-6 py-3 rounded-lg font-semibold transition"
-          >
-            Get Started
-          </a>
-        </div>
+      {/* Content */}
+      <div className="relative z-20 flex flex-col items-center justify-center h-full px-6 text-center text-white">
+        <h1 className="text-4xl md:text-6xl font-bold leading-tight mb-4">
+          Cook, Share, Inspire.
+        </h1>
+        <p className="text-base md:text-lg lg:text-xl max-w-2xl mx-auto mb-6">
+          Discover curated cookbooks and global chef recipes delivered to your
+          table.
+        </p>
+        <button className="bg-orange-500 hover:bg-orange-600 px-6 py-3 rounded-full text-white font-semibold transition">
+          Explore Recipes
+        </button>
       </div>
-    </section>
+    </div>
   );
 };
 
