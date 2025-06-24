@@ -1,66 +1,137 @@
-import React from 'react'
+import React, { useState } from 'react';
 
 const CreateAd = () => {
+  const [formData, setFormData] = useState({
+    title: '',
+    description: '',
+    category: '',
+    price: '',
+    location: '',
+    images: [],
+  });
+
+  const [status, setStatus] = useState('');
+
+  const handleChange = (e) => {
+    const { name, value, files } = e.target;
+
+    if (name === 'images') {
+      setFormData({ ...formData, images: Array.from(files) });
+    } else {
+      setFormData({ ...formData, [name]: value });
+    }
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    // Normally you'd post to backend here
+    console.log('Submitting:', formData);
+
+    setStatus('Ad posted successfully!');
+    setFormData({
+      title: '',
+      description: '',
+      category: '',
+      price: '',
+      location: '',
+      images: [],
+    });
+
+    // Reset file input manually if needed
+    e.target.reset();
+  };
+
+  const categoryOptions = [
+    'Course - Appetizer',
+    'Course - Main',
+    'Course - Dessert',
+    'Cuisine - Nigerian',
+    'Cuisine - Italian',
+    'Technique - Grilling',
+    'Special Diet - Vegan',
+  ];
+
   return (
-    <div className='w-[90%]  ml-30 mt-20 flex justify-center items-center '>
-      <form className="w-200 mx-auto bg-white p-8 rounded shadow-md">
-        <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="title">
-            Recipe Name
-          </label>
-          <input
-            type="text"
-            id="title"
-            placeholder="Enter ad title"
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          />
-        </div>
-        <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="title">
-            Image
-          </label>
-          <input
-            type="file"
-            id="image"
-            placeholder="Upload Image"
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          />
-        </div>
+    <div className="p-6 max-w-2xl mx-auto bg-white rounded shadow">
+      <h2 className="text-2xl font-bold text-orange-600 mb-4">Post a New Recipe or Cookbook</h2>
 
-        
+      {status && <div className="bg-green-100 text-green-800 p-2 mb-4 rounded">{status}</div>}
 
-        <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="description">
-            Description
-          </label>
-          <textarea
-            id="description"
-            placeholder="Enter ad description"
-            className="shadow appearance-none border rounded w-full py-2 px-3 resize-none text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          ></textarea>
-        </div>
+      <form onSubmit={handleSubmit} className="space-y-4">
+        <input
+          type="text"
+          name="title"
+          placeholder="Title"
+          value={formData.title}
+          onChange={handleChange}
+          required
+          className="w-full border p-2 rounded"
+        />
 
-        <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="price">
-            Price
-          </label>
-          <input
-            type="number"
-            id="price"
-            placeholder="Enter price"
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          />
-        </div>
+        <textarea
+          name="description"
+          placeholder="Description"
+          value={formData.description}
+          onChange={handleChange}
+          rows={5}
+          required
+          className="w-full border p-2 rounded"
+        />
+
+        <select
+          name="category"
+          value={formData.category}
+          onChange={handleChange}
+          required
+          className="w-full border p-2 rounded"
+        >
+          <option value="">-- Select Category --</option>
+          {categoryOptions.map((opt, idx) => (
+            <option key={idx} value={opt}>
+              {opt}
+            </option>
+          ))}
+        </select>
+
+        <input
+          type="number"
+          name="price"
+          placeholder="Price (e.g., 15)"
+          value={formData.price}
+          onChange={handleChange}
+          required
+          className="w-full border p-2 rounded"
+        />
+
+        <input
+          type="text"
+          name="location"
+          placeholder="Location (e.g., Lagos, Nigeria)"
+          value={formData.location}
+          onChange={handleChange}
+          required
+          className="w-full border p-2 rounded"
+        />
+
+        <input
+          type="file"
+          name="images"
+          accept="image/*"
+          multiple
+          onChange={handleChange}
+          className="w-full border p-2 rounded"
+        />
 
         <button
           type="submit"
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+          className="w-full bg-orange-500 text-white py-2 rounded hover:bg-orange-600"
         >
-          Create Ad
+          Submit Ad
         </button>
       </form>
     </div>
-  )
-}
+  );
+};
 
 export default CreateAd;
