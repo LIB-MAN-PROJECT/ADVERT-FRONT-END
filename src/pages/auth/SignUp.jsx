@@ -1,8 +1,21 @@
 import React from "react";
 import { useState } from "react";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
+import { useForm } from "react-hook-form";
+import { span } from "framer-motion/client";
+import { apiSignUp } from "../../services/auth";
+import { toast } from "react-toastify";
 
 const SignUp = () => {
+  const navigate = useNavigate();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+  console.log(errors);
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -11,25 +24,46 @@ const SignUp = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [state, setState] = useState("vendor");
 
+  const onSubmit = async (data) => {
+    console.log(data);
+    const payload = {
+      username: data.username,
+      email: data.Email,
+      password: data.password,
+      role: state,
+    };
+    setIsSubmitting(true);
+
+    try {
+      const res = await apiSignUp(payload);
+      console.log(res);
+      toast.success("User Registered Successfully");
+      navigate("/login");
+    } catch (error) {
+      console.log(error);
+      toast.error(error?.message || "Error Occured");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("signup data:", formData);
-  };
+  const isError = Object.keys(errors).length > 0;
 
   return (
     <div className="max-w-md mx-auto mt-10 p-6 bg-white shadow-md rounded-lg">
       <h2 className="text-2xl font-bold mb-6 text-center">Sign Up</h2>
-      <div className="flex justify-between item-center">
+      
+      <div className="flex justify-center mb-6">
         <button
           type="button"
-          className={`py-2 px-4 rounded ${
+          className={`py-2 px-6 text-sm font-medium focus:outline-none transition ${
             state === "vendor"
               ? "bg-blue-600 text-white"
-              : "bg-gray-200 text-gray-600"
+              : "bg-gray-100 text-gray-700 hover:bg-gray-200"
           }`}
           onClick={() => setState("vendor")}
         >
@@ -42,103 +76,164 @@ const SignUp = () => {
               ? "bg-blue-600 text-white"
               : "bg-gray-200 text-gray-600"
           }`}
-          onClick={() => setState("customer")}
+          onClick={() => setState("user")}
         >
           Buyer
         </button>
       </div>
-      <form onSubmit={handleSubmit} className="space-y-4"> 
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 ">
         <div className="relative mt-6">
-        <label className="absolute -top-3 bg-white left-4 px-3" htmlFor="name">Full Name</label>
-        
-        <input
-          type="text"
-          name="name"
-          // placeholder="Full Name"
-          onChange={handleChange}
-          className="w-full px-4 py-2 border rounded-2xl"
-          required
-        />
+          <label
+            className="absolute -top-3 bg-white left-4 px-3"
+            htmlFor="name"
+          >
+            User Name
+          </label>
+
+          <input
+            type="text"
+            placeholder="Enter Full Name"
+           className="w-full p-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            {...register("username", { required: "username is required" })}
+          />
+          {errors?.username && (
+            <span className="text-red-500">{errors.username.message}</span>
+          )}
         </div>
 
         <div className="relative mt-6">
-          <label className="absolute -top-3 bg-white left-4 px-3" htmlFor="phone number">Phone Number</label>
+          <label
+           className="absolute -top-3 bg-white left-4 px-3"
+            htmlFor="email"
+          >
+            Email
+          </label>
+          <input
+            type="email"
+            placeholder=" Enter Your Email"
+            className="w-full p-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            {...register("Email", { required: "Email is required" })}
+          />
+          {errors?.Email && (
+            <span className="text-red-500">{errors.Email.message}</span>
+          )}
+        </div>
+        <div className="relative mt-6">
+          <label
+           className="absolute -top-3 bg-white left-4 px-3"
+            htmlFor="phone number"
+          >
+            Phone Number
+          </label>
           <input
             type="phone"
             name="phone number"
-            // placeholder="+233"
-            onChange={handleChange}
-            className="w-full px-4 py-2 border rounded-2xl"
-            required
+            placeholder="+233"
+            // onChange={handleChange}
+            className="w-full p-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            {...register("phonenumber", {
+              required: "phonenumber is required",
+            })}
           />
+          {errors?.phonenumber && (
+            <span className="text-red-500">{errors.phonenumber.message}</span>
+          )}
         </div>
+
         <div className="relative mt-6">
-          <label className="absolute -top-3 bg-white left-4 px-3" htmlFor="email">Email</label>
+          <label
+            className="absolute -top-3 bg-white left-4 px-3"
+            htmlFor="location"
+          > Location </label>
+           {state === "vendor" ? (
           <input
-            type="email"
-            name="email"
-            // placeholder="Email"
-            onChange={handleChange}
-            className="w-full px-4 py-2 border rounded-2xl"
-            required
+            type="location"
+            placeholder="select a country"
+            className="w-full p-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            {...register("location", {
+              required: "location is required",
+            })}
           />
-        </div>
-       <div className="relative mt-6">
-         <label className="absolute -top-3 bg-white left-4 px-3" htmlFor="phone number">Phone Number</label>
-         <input
-          type="phone"
-          name="phone number"
-          // placeholder="+233"
-          onChange={handleChange}
-          className="w-full px-4 py-2 border rounded-2xl"
-        />
-       </div>
-       
-        {state === "vendor" ? (
-          <input
-            type="number"
-            name="number"
-            placeholder="enter account number"
-            onChange={handleChange}
-            className="w-full p-2 border rounded"
-            required
-            min={1}
-          />
+          
         ) : null}
-        <div className="relative mt-6">
-          <input
-          type="password"
-          name="password"
-          // placeholder="Password"
-          onChange={handleChange}
-          className="w-full px-4 py-2 border rounded-2xl"
-          required
-          minLength={8}
-        />
+        {errors?.Email && (
+            <span className="text-red-500">{errors.Email.message}</span>
+          )}
         </div>
-        
-        <input
-          type="password"
-          name="confirm password"
-          // placeholder="Confirm Password"
-          onChange={handleChange}
-          className="w-full px-4 py-2 border rounded-2xl"
-          required
-          minLength={8}
+
+       
+        <div className="relative mt-6">
+           <label
+            className="absolute -top-3 bg-white left-4 px-3"
+            htmlFor="password"
+          >Password</label>
+          <input
+         
+            type="password"
+            placeholder="Password"
+            // onChange={handleChange}
+            className="w-full p-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            {...register("password", {
+              required: "password is required",
+              minLength: {
+                value: 8,
+                message: "Password must be at least 8 characters",
+              },
+            })}
+          />
+          {errors?.password && (
+            <span className="text-red-500">{errors.password.message}</span>
+          )}
+        </div>
+
+        <div className="relative mt-6">
+           <label
+            className="absolute -top-3 bg-white left-4 px-3"
+            htmlFor=" password"
+          > Confirm Password</label>
+           <input
+          type=" password"
+          placeholder="Confirm Password"
+          className="w-full p-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          {...register(" confirm password", {
+            required: "password is required",
+            minLength: {
+              value: 8,
+              message: "Password must be at least 8 characters",
+            },
+          })}
         />
+        {errors?.Password && (
+            <span className="text-red-500">{errors.Password.message}</span>
+          )}
+        </div>
+
+       
         <p>
-          By Signing Up, you agree to our <Link to='/privacy-policy'>Privacy Policy</Link>  and Terms and
-          Conditions.
+          By Signing Up, you agree to our{" "}
+          <Link
+            to="/privacy-policy"
+            className="hover:underline text-purple-600"
+          >
+            Privacy Policy.
+          </Link>{" "}
         </p>
 
-        <Link to="/sign-up">
-          <button
-            type="submit"
-            className="w-full  bg-blue-600  text-white p-2 rounded hover:bg-blue-700"
-          >
-            Sign Up
-          </button>
-        </Link>
+      
+        <button
+          type="submit"
+          disabled={isError}
+          className={`${
+            isError ? "bg-gray-200 cursor-not-allowed" : "bg-pink-500 w-full"
+          } w-full  bg-blue-600  text-white p-2 rounded hover:bg-blue-700`}
+        >
+          {isSubmitting ? "Submitting..." : "Sign Up"}
+        </button>
+        
+
+        <p>
+          Already have an account? <Link to="/login">Login</Link>
+        </p>
       </form>
     </div>
   );
