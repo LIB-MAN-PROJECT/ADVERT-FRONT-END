@@ -3,6 +3,7 @@ import About from "./About";
 import Offers from "./Offers";
 import HowItWorks from "./HowItWorks";
 import MeetTheTeam from "./MeetTheTeam";
+import { Link } from "react-router";
 
 const Landing = () => {
   return (
@@ -20,12 +21,11 @@ const Landing = () => {
           Sign up today and start your culinary adventure with top chefs and
           global flavors.
         </p>
-        <a
-          href="/signup"
-          className="bg-orange-600 text-white px-6 py-3 rounded font-semibold hover:bg-orange-700 transition"
-        >
-          Get Started
-        </a>
+        <Link to ="/sign-up">
+          <a className="bg-orange-600 text-white px-6 py-3 rounded font-semibold hover:bg-orange-700 transition">
+            Get Started
+          </a>
+        </Link>
       </section>
     </>
   );
