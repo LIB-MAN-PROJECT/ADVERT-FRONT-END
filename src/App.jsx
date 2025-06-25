@@ -30,7 +30,6 @@ import AdsList from "./pages/admin/AdminAdsList";
 import UsersList from "./pages/admin/UsersList";
 import BookChef from "./pages/user/BookChef";
 
-
 function App() {
   const router = createBrowserRouter([
     {
@@ -90,40 +89,6 @@ function App() {
       ],
     },
 
-      ],
-    },
-    // admin layouts
-    // {
-    //   path: "/admin",
-    //   element: <AdminLayouts />,
-    //   children: [
-    //     {
-    //       path: "dashboard-details/:id",
-    //       elememt: <AdDetails />,
-
-    //       index: true,
-    //       element: <AdminDashboard />,
-    //     },
-    //     // {
-    //     //   path: "",
-    //     //   element: <AdminDashboard />,
-    //     // },
-    //     {
-    //       path: "ad-lists",
-    //       element: <AdsList />,
-    //     },
-    //     {
-    //       path: "users-list",
-    //       element: <UsersList />,
-    //     },
-    //     {
-    //       path: "policy",
-    //       element: <Policy />,
-    //     },
-    //   ],
-    // },
-    // users layouts
-
     {
       path: "/",
       element: <UserLayouts />,
@@ -173,8 +138,6 @@ function App() {
           element: <Faq />,
         },
       ],
-
-      // element: <Overview />,
     },
   ]);
 

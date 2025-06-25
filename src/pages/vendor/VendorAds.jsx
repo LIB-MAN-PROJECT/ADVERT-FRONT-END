@@ -10,7 +10,7 @@ const VendorAds = () => {
   const navigate = useNavigate();
 
   const handleDelete = async (id) => {
-    console.log("hello");
+    
 
     try {
       const res = await apiDeleteAd(id);

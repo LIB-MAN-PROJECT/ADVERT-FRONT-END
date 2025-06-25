@@ -19,9 +19,7 @@ export const apiEditAd = async (id, payload) =>
   apiClient.put(`/adverts/${id}`, payload);
 
 //delete ad
-export const apiDeleteAd = async (id) =>
-  apiClientClient.delete(`/adverts/${id}`);
+export const apiDeleteAd = async (id) => apiClient.delete(`/adverts/${id}`);
 
-  export const apiFetchVendorAd =async () => apiClient.get(`/adverts/vendor/get-adverts`)
-
-  
+export const apiFetchVendorAd = async () =>
+  apiClient.get(`/adverts/vendor/get-adverts`);
