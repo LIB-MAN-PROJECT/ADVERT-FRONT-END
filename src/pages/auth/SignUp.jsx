@@ -31,6 +31,8 @@ const SignUp = () => {
       email: data.Email,
       password: data.password,
       role: state,
+      // confirmPassword: data.confirmPassword,
+      // country: data.location,
     };
     setIsSubmitting(true);
 
@@ -56,7 +58,7 @@ const SignUp = () => {
   return (
     <div className="max-w-md mx-auto mt-10 p-6 bg-white shadow-md rounded-lg">
       <h2 className="text-2xl font-bold mb-6 text-center">Sign Up</h2>
-      
+
       <div className="flex justify-center mb-6">
         <button
           type="button"
@@ -93,7 +95,7 @@ const SignUp = () => {
           <input
             type="text"
             placeholder="Enter Full Name"
-           className="w-full p-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full p-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
             {...register("username", { required: "username is required" })}
           />
           {errors?.username && (
@@ -103,7 +105,7 @@ const SignUp = () => {
 
         <div className="relative mt-6">
           <label
-           className="absolute -top-3 bg-white left-4 px-3"
+            className="absolute -top-3 bg-white left-4 px-3"
             htmlFor="email"
           >
             Email
@@ -120,7 +122,7 @@ const SignUp = () => {
         </div>
         <div className="relative mt-6">
           <label
-           className="absolute -top-3 bg-white left-4 px-3"
+            className="absolute -top-3 bg-white left-4 px-3"
             htmlFor="phone number"
           >
             Phone Number
@@ -144,31 +146,34 @@ const SignUp = () => {
           <label
             className="absolute -top-3 bg-white left-4 px-3"
             htmlFor="location"
-          > Location </label>
-           {state === "vendor" ? (
-          <input
-            type="location"
-            placeholder="select a country"
-            className="w-full p-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
-            {...register("location", {
-              required: "location is required",
-            })}
-          />
-          
-        ) : null}
-        {errors?.Email && (
+          >
+            {" "}
+            Location{" "}
+          </label>
+
+          {state === "vendor" ? (
+            <input
+              type="location"
+              placeholder="select a country"
+              className="w-full p-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              {...register("location", {
+                required: "location is required",
+              })}
+            />
+          ) : null}
+          {errors?.Email && (
             <span className="text-red-500">{errors.Email.message}</span>
           )}
         </div>
 
-       
         <div className="relative mt-6">
-           <label
+          <label
             className="absolute -top-3 bg-white left-4 px-3"
             htmlFor="password"
-          >Password</label>
+          >
+            Password
+          </label>
           <input
-         
             type="password"
             placeholder="Password"
             // onChange={handleChange}
@@ -187,28 +192,30 @@ const SignUp = () => {
         </div>
 
         <div className="relative mt-6">
-           <label
+          <label
             className="absolute -top-3 bg-white left-4 px-3"
             htmlFor=" password"
-          > Confirm Password</label>
-           <input
-          type=" password"
-          placeholder="Confirm Password"
-          className="w-full p-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
-          {...register(" confirm password", {
-            required: "password is required",
-            minLength: {
-              value: 8,
-              message: "Password must be at least 8 characters",
-            },
-          })}
-        />
-        {errors?.Password && (
-            <span className="text-red-500">{errors.Password.message}</span>
+          >
+            {" "}
+            Confirm Password
+          </label>
+          <input
+            type=" password"
+            placeholder="Confirm Password"
+            className="w-full p-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            {...register("confirmPassword", {
+              required: "password is required",
+              minLength: {
+                value: 8,
+                message: "Password must be at least 8 characters",
+              },
+            })}
+          />
+          {errors?.confirmPassword && (
+            <span className="text-red-500">{errors.confirmPassword.message}</span>
           )}
         </div>
 
-       
         <p>
           By Signing Up, you agree to our{" "}
           <Link
@@ -219,7 +226,6 @@ const SignUp = () => {
           </Link>{" "}
         </p>
 
-      
         <button
           type="submit"
           disabled={isError}
@@ -229,7 +235,6 @@ const SignUp = () => {
         >
           {isSubmitting ? "Submitting..." : "Sign Up"}
         </button>
-        
 
         <p>
           Already have an account? <Link to="/login">Login</Link>
