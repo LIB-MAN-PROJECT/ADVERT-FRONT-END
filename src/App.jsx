@@ -6,7 +6,7 @@ import VendorAds from "./pages/vendor/VendorAds";
 import CreateAd from "./pages/vendor/CreateAd";
 import DashboardLayout from "./layouts/DashboardLayouts";
 import EditAd from "./pages/vendor/EditAd";
-import AdDetails from "./pages/vendor/AdDetails";
+import AdDetails from "./pages/user/AdDetails";
 import UserLayouts from "./layouts/UserLayouts";
 import AllAdverts from "./pages/user/AllAdverts";
 import Offers from "./pages/user/Offers";
@@ -15,13 +15,7 @@ import UserContact from "./pages/user/UserContact";
 import Landing from "./pages/user/Landing";
 import HowItWorks from "./pages/user/HowItWorks";
 import MeetTheTeam from "./pages/user/MeetTheTeam";
-
-import Login from "./pages/auth/Login"
-import SignUp from "./pages/auth/SignUp"
-import ForgotPassword from "./pages/auth/ForgotPassword"
-import Policy from "./pages/auth/Policy"
 import Footer from "./pages/user/components/Footer";
-
 import Login from "./pages/auth/Login";
 import SignUp from "./pages/auth/SignUp";
 import ForgotPassword from "./pages/auth/ForgotPassword";
@@ -33,7 +27,7 @@ import AdminLayouts from "./layouts/AdminLayouts";
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import AdsList from "./pages/admin/AdminAdsList";
 import UsersList from "./pages/admin/UsersList";
-
+import BookChef from "./pages/user/BookChef";
 
 function App() {
   const router = createBrowserRouter([
@@ -45,6 +39,7 @@ function App() {
       path: "/sign-up",
       element: <SignUp />,
     },
+    { path: "/adverts/:id", element: <AdDetails /> },
     {
       path: "/forgot-password",
       element: <ForgotPassword />,
@@ -86,39 +81,35 @@ function App() {
       ],
     },
     // admin layouts
-    {
-      path: "/admin",
-      element: <AdminLayouts />,
-      children: [
-        {
+    // {
+    //   path: "/admin",
+    //   element: <AdminLayouts />,
+    //   children: [
+    //     {
+    //       path: "dashboard-details/:id",
+    //       elememt: <AdDetails />,
 
-          path: "dashboard-details/:id",
-          elememt: <AdDetails />,
-
-          index: true,
-          element: <AdminDashboard />,
-        },
-        // {
-        //   path: "",
-        //   element: <AdminDashboard />,
-        // },
-        {
-          path: "ad-lists",
-          element: <AdsList />,
-        },
-        {
-          path: "users-list",
-          element: <UsersList />,
-
-        },
-        {
-          path:"policy",
-          element:<Policy/>,
-        }
-
-  
-      ],
-    },
+    //       index: true,
+    //       element: <AdminDashboard />,
+    //     },
+    //     // {
+    //     //   path: "",
+    //     //   element: <AdminDashboard />,
+    //     // },
+    //     {
+    //       path: "ad-lists",
+    //       element: <AdsList />,
+    //     },
+    //     {
+    //       path: "users-list",
+    //       element: <UsersList />,
+    //     },
+    //     {
+    //       path: "policy",
+    //       element: <Policy />,
+    //     },
+    //   ],
+    // },
     // users layouts
     {
       path: "/",
@@ -148,9 +139,10 @@ function App() {
           element: <AllAdverts />,
         },
         {
-          path: "user-adverts/:id",
-          element: <AdDetails />,
+          path: "book-chef",
+          element: <BookChef />,
         },
+
         {
           path: "offers",
           element: <Offers />,
@@ -160,15 +152,16 @@ function App() {
           element: <UserContact />,
         },
         {
-
           path: "footer",
-          element:<Footer/>
+          element: <Footer />,
+        },
 
+        {
           path: "faq",
           element: <Faq />,
-
         },
       ],
+
       // element: <Overview />,
     },
   ]);
