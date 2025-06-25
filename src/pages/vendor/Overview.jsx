@@ -1,4 +1,5 @@
 import React from 'react';
+import AdDetails from "./AdDetails"
 
 const Overview = () => {
   const stats = [
@@ -19,6 +20,7 @@ const Overview = () => {
         <h1 className="text-3xl font-bold text-orange-600">Welcome back, Chef Roberts 👨‍🍳</h1>
         <p className="text-gray-600 mt-1">Here’s what’s happening today.</p>
       </div>
+    
 
       {/* Stats Overview */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 mb-6">
@@ -87,6 +89,7 @@ const Overview = () => {
           </div>
         </div>
       </div>
+        <AdDetails/>
     </div>
   );
 };

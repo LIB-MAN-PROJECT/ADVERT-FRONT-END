@@ -15,19 +15,21 @@ import UserContact from "./pages/user/UserContact";
 import Landing from "./pages/user/Landing";
 import HowItWorks from "./pages/user/HowItWorks";
 import MeetTheTeam from "./pages/user/MeetTheTeam";
-import Footer from "./pages/user/components/Footer";
+
 import Login from "./pages/auth/Login";
 import SignUp from "./pages/auth/SignUp";
 import ForgotPassword from "./pages/auth/ForgotPassword";
 import Policy from "./pages/auth/Policy";
-import Profile from "./pages/vendor/Profile";
+import Footer from "./pages/user/components/Footer";
 import Settings from "./pages/vendor/Settings";
+import PaymentForm from "./pages/auth/Pay";
 import Faq from "./pages/user/FAQ";
 import AdminLayouts from "./layouts/AdminLayouts";
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import AdsList from "./pages/admin/AdminAdsList";
 import UsersList from "./pages/admin/UsersList";
 import BookChef from "./pages/user/BookChef";
+
 
 function App() {
   const router = createBrowserRouter([
@@ -45,18 +47,13 @@ function App() {
       element: <ForgotPassword />,
     },
     {
+      pay: "/pay",
+      element: <PaymentForm />,
+    },
+    {
       path: "/privacy-policy",
       element: <Policy />,
     },
-    {
-      path: "/vendor/profile",
-      element: <Profile />,
-    },
-    {
-      path: "/vendor/settings",
-      element: <Settings />,
-    },
-    // vendor layouts
     {
       path: "/dashboard",
       element: <DashboardLayout />,
@@ -66,18 +63,33 @@ function App() {
           element: <Overview />,
         },
         {
-          path: "ads",
+          path: "vendor-ads",
           element: <VendorAds />,
         },
         {
-          path: "create-ad",
+          path: "Create-ad",
           element: <CreateAd />,
         },
 
         {
-          path: "dashboard-ad/:id",
+          path: "ad/:id",
           element: <EditAd />,
         },
+        {
+          path: "dashboard-details/:id",
+          elememt: <AdDetails />,
+        },
+        {
+          path: "policy",
+          element: <Policy />,
+        },
+        {
+          path: "vendor-settings",
+          element: <Settings />,
+        },
+      ],
+    },
+
       ],
     },
     // admin layouts
@@ -111,6 +123,7 @@ function App() {
     //   ],
     // },
     // users layouts
+
     {
       path: "/",
       element: <UserLayouts />,
@@ -133,7 +146,6 @@ function App() {
           path: "about-us/meet-the-team",
           element: <MeetTheTeam />,
         },
-
         {
           path: "user-adverts",
           element: <AllAdverts />,

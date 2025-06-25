@@ -1,6 +1,6 @@
 
 import K from "../../../constants";
-import { NavLink, useNavigate } from "react-router";
+import { Link, NavLink, useNavigate } from "react-router";
 import { LogOut, UserCircle2, Settings2 } from "lucide-react";
 
 const Sidebar = () => {
@@ -12,9 +12,15 @@ const Sidebar = () => {
   return (
     <div className="bg-white shadow-md w-72 h-screen fixed left-0 top-0 p-6 flex flex-col justify-between z-50 border-r border-orange-200 text-gray-800">
       <div className="flex items-center justify-center mb-10">
-        <span className="text-3xl font-extrabold text-orange-500 tracking-wide">
+        
+        <Link to="/">
+         <span className="text-3xl font-extrabold text-orange-500 tracking-wide">
           G.ARNISH
         </span>
+        </Link>
+       
+
+       
       </div>
 
       <nav className="flex flex-col gap-4">
@@ -36,6 +42,7 @@ const Sidebar = () => {
           </NavLink>
         ))}
       </nav>
+       
 
       <div className="mt-8 border-t border-orange-100 pt-6 space-y-4">
         <NavLink

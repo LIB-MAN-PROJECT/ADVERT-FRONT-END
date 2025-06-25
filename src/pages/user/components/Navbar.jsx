@@ -2,7 +2,11 @@ import K from "../../../constants";
 import { Link, NavLink } from "react-router";
 import { ChevronDown } from "lucide-react";
 
+
+
 const Navbar = () => {
+  
+
   return (
     <div className="bg-white/90 backdrop-blur-md w-full shadow-md fixed top-0 left-0 z-50 border-b border-gray-200 font-sans">
       <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
@@ -35,6 +39,7 @@ const Navbar = () => {
                 )}
               </div>
 
+
               {dropdown && children && (
                 <div className="absolute left-0 mt-3 opacity-0 group-hover:opacity-100 group-hover:translate-y-0 pointer-events-none group-hover:pointer-events-auto transition-all duration-300 ease-in-out bg-white shadow-xl rounded-md border min-w-[180px] z-50">
                   {children.map((child, index) => (
@@ -47,7 +52,7 @@ const Navbar = () => {
                     </Link>
                   ))}
                 </div>
-              )}
+               )}
             </div>
           ))}
         </nav>

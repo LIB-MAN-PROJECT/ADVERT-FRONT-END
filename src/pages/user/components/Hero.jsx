@@ -1,7 +1,9 @@
 import React from "react";
+
 import backgroundVideo from "../../../assets/background.mp4.mp4";
 import { Link } from "react-router";
 import { motion } from "framer-motion";
+
 
 const Hero = () => {
   return (
