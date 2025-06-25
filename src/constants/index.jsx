@@ -56,6 +56,7 @@ const K = {
       text: "FAQ",
       path: "/faq",
     },
+   
 
   ],
   ADMINLINKS: [

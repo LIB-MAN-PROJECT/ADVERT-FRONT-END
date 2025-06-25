@@ -23,6 +23,7 @@ const AllAdverts = () => {
           tagSet.add(item.countryOfOrigin);
           tagSet.add(item.courseType);
           tagSet.add(item.cookingTechnique);
+          
           tagSet.add(item.specialDiet);
         });
 

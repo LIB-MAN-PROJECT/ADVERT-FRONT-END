@@ -1,5 +1,6 @@
 import React from "react";
 import backgroundVideo from "../../../assets/background.mp4.mp4"; // ✅ adjust path if needed
+import { Link } from "react-router";
 
 const Hero = () => {
   return (
@@ -26,9 +27,12 @@ const Hero = () => {
           Discover curated cookbooks and global chef recipes delivered to your
           table.
         </p>
+        <Link to="/login">
         <button className="bg-orange-500 hover:bg-orange-600 px-6 py-3 rounded-full text-white font-semibold transition">
           Explore Recipes
         </button>
+        </Link>
+        
       </div>
     </div>
   );

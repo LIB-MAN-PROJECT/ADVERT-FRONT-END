@@ -25,6 +25,7 @@ const TermsAndPrivacy = () => {
           <p className="text-gray-600 mb-4">
             Welcome to <strong>Recipe</strong> and our Terms and Conditions of Service. We are excited to change the way you cook and eat for the better and help you feel more empowered in the kitchen.
           </p>
+          <p>At RecipeEase, we are committed to providing a safe, inspiring, and enjoyable experience for all our users. By signing up and using our platform, you agree to provide accurate information and to respect the content and community guidelines. All recipes, tips, and images shared on the app are for personal use only and may not be redistributed or used commercially without permission. <br /> <br /> We protect your privacy by collecting only the data necessary to enhance your experience and improve our services. Any recipes or content you contribute remain your property, but by sharing them, you grant us permission to display them on the platform. Offensive, plagiarized, or harmful content is strictly prohibited and may lead to account suspension. We use cookies to personalize your experience and help us understand how the app is being used. By continuing to use RecipeEase, you agree to abide by these terms and our full Privacy Policy.</p>
           <p className="text-gray-600 mb-4">
             These Terms are important and affect your legal rights, so please read them carefully.
           </p>
@@ -34,6 +35,9 @@ const TermsAndPrivacy = () => {
           <p className="text-gray-600 mb-4">
             An amount of <span className="font-semibold text-pink-600">5%</span> will be charged for posting a single ad. Ads will be approved within <span className="font-semibold text-green-600">24 hours</span>.
           </p>
+          <p>We may occasionally update our policies, and you will be notified when significant changes occur. Your continued use of RecipeEase after such updates confirms your acceptance of the revised terms.
+
+</p>
 
           <h2 className="text-2xl font-bold text-gray-800 mt-8 mb-4">Privacy Policy</h2>
           <p className="text-gray-600 mb-4">

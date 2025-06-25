@@ -8,6 +8,9 @@ const ForgotPassword = () => {
         <h1 className="text-2xl font-bold mb-4 text-center text-gray-800">
           Reset Password
         </h1>
+
+        
+
         <p className="text-gray-600 text-center mb-6">
           Click <span className="font-semibold">Continue</span> to reset your password.
         </p>

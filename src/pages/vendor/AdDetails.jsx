@@ -1,121 +1,124 @@
-import { useParams } from "react-router";
-import { useState, useEffect } from "react";
-import axios from "axios";
-import { Link } from "react-router";
+import { useEffect, useState } from "react";
+import { apiFetchAdverts, apiFetchSingleAd } from "../../services/adverts";
+import { useNavigate } from "react-router";
 
-const AdDetails = () => {
-  const { id } = useParams();
-  const [loading, setLoading] = useState(false);
-  const [book, setBook] = useState({});
+const AllAdverts = () => {
+  const navigate = useNavigate();
 
-  const fetchSingleBook = async () => {
-    setLoading(true);
-    try {
-      const res = await axios.get(
-        `https://library-management-api-backup.onrender.com/books/${id}`
-      );
-      setBook(res.data.data || res.data.findBook || {});
-    } catch (error) {
-      console.error("Error fetching book:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
+  // useEffect(() => {
+  //   //retrieve from local storage
+  //   const token = localStorage.getItem("accessToken");
+
+  //   //if there's no token,take them to login
+  //   if (!token) {
+  //     navigate("/login");
+  //   }
+  // }, []);
+  const [recipes, setRecipes] = useState([]);
+  const [filteredCategory, setFilteredCategory] = useState("All");
+  const [categories, setCategories] = useState([]);
 
   useEffect(() => {
-    fetchSingleBook();
+    const fetchRecipes = async () => {
+      try {
+        const res = await apiFetchAdverts();
+        console.log("Fetched adverts:", res.data);
+
+        setRecipes(res.data);
+
+        // Extract tags from 4 fields
+        const tagSet = new Set();
+        res.data.forEach((item) => {
+          tagSet.add(item.countryOfOrigin);
+          tagSet.add(item.courseType);
+          tagSet.add(item.cookingTechnique);
+          tagSet.add(item.specialDiet);
+        });
+
+        const cleanedTags = Array.from(tagSet).filter(Boolean);
+        setCategories(["All", ...cleanedTags]);
+      } catch (error) {
+        console.error("Error fetching recipes:", error);
+      }
+    };
+
+    fetchRecipes();
   }, []);
 
-  const renderStars = (rating = 0) => {
-    const stars = [];
-    const fullStars = Math.floor(rating);
-    const remainder = rating - fullStars;
-
-    for (let i = 0; i < fullStars; i++) {
-      stars.push("★");
-    }
-    if (remainder >= 0.5) stars.push("☆");
-    while (stars.length < 5) {
-      stars.push("☆");
-    }
-
-    return stars.join(" ");
-  };
+  const filteredRecipes =
+    filteredCategory === "All"
+      ? recipes
+      : recipes.filter(
+          (r) =>
+            r.countryOfOrigin === filteredCategory ||
+            r.courseType === filteredCategory ||
+            r.cookingTechnique === filteredCategory ||
+            r.specialDiet === filteredCategory
+        );
 
   return (
-    <section className="min-h-screen px-6 py-12 bg-gradient-to-br from-gray-100 to-white text-gray-900 font-serif animate-fadeIn">
-      {loading ? (
-        <p className="text-center text-xl font-medium">Fetching your book...</p>
-      ) : (
-        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-14 items-start">
-          {/* Book Image */}
-          <div className="bg-white shadow-2xl rounded-2xl p-6 flex justify-center items-center h-[500px]">
-            <img
-              src={book?.bookImg}
-              alt={book?.title}
-              className="max-h-full max-w-full object-contain rounded-lg"
-            />
-          </div>
+    <section className="bg-white py-20 px-6 md:px-20">
+      <h2 className="text-4xl font-bold text-center text-gray-800 mb-6">
+        Explore Recipes
+      </h2>
+      <p className="text-center text-gray-600 mb-10 max-w-xl mx-auto">
+        Browse chef-submitted recipes by category, course, or diet.
+      </p>
 
-          {/* Book Details */}
-          <div className="shadow-2xl rounded-2xl p-10 space-y-6">
-            <div>
-              <h1 className="text-4xl font-bold text-gray-800 leading-snug">
-                {book?.title}
-              </h1>
-              <p className="text-lg text-gray-500 mt-1">
-                by{" "}
-                <span className="text-gray-700 font-semibold">
-                  {book?.author}
-                </span>
-              </p>
-            </div>
+      <div className="flex flex-wrap justify-center gap-4 mb-12">
+        {categories.map((cat) => (
+          <button
+            key={cat}
+            onClick={() => setFilteredCategory(cat)}
+            className={`px-5 py-2 rounded-full text-sm font-medium transition ${
+              filteredCategory === cat
+                ? "bg-orange-500 text-white"
+                : "bg-orange-100 text-orange-700 hover:bg-orange-200"
+            }`}
+          >
+            {cat}
+          </button>
+        ))}
+      </div>
 
-            <div className="text-md text-gray-700 space-y-1">
-              <p>
-                <span className="font-semibold">Publisher:</span>{" "}
-                {book?.publisher}
-              </p>
-              <p>
-                <span className="font-semibold">Genre:</span> {book?.genre}
-              </p>
-              <p>
-                <span className="font-semibold">Publication Year:</span>{" "}
-                {book?.publication_year}
-              </p>
-              <p>
-                <span className="font-semibold">Rating:</span>{" "}
-                <span className="text-yellow-500">
-                  {renderStars(book?.rating)}
-                </span>
-              </p>
+      {filteredRecipes.length > 0 ? (
+        // <Link to={`/user-adverts/${id}`}>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          {filteredRecipes.map((recipe) => (
+            <div
+              key={recipe._id}
+              className="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition"
+              onClick={() => navigate(`/adverts/${recipe._id}`)}
+            >
+              <img
+                src={recipe.imageUrl}
+                alt={recipe.recipeName}
+                className="w-full h-64 object-cover"
+              />
+              <div className="p-5">
+                <h3 className="text-xl font-semibold text-gray-800 mb-1">
+                  {recipe.recipeName}
+                </h3>
+                <p className="text-orange-600 font-bold mb-1">
+                  ${recipe.price}
+                </p>
+                <p className="text-sm text-gray-600 mb-2 line-clamp-3">
+                  {recipe.description}
+                </p>
+                <p className="text-xs text-gray-500 italic">
+                  {recipe.courseType} • {recipe.countryOfOrigin} •{" "}
+                  {recipe.specialDiet}
+                </p>
+              </div>
             </div>
-
-            <div>
-              <h2 className="text-xl font-semibold text-gray-800 mb-2">
-                Book Summary
-              </h2>
-              <p className="text-gray-700 leading-relaxed tracking-wide">
-                {book?.summary || "No summary provided for this title."}
-              </p>
-            </div>
-
-            <div className="pt-6 flex justify-between items-center">
-              <Link
-                to="/dashboard/adverts"
-                className="text-purple-700 underline text-sm hover:text-purple-900"
-              >
-                ← Back to Ads
-              </Link>
-              <button className="bg-black text-white px-6 py-2 rounded-lg hover:bg-gray-800 transition-all shadow">
-                Read Sample
-              </button>
-            </div>
-          </div>
+          ))}
         </div>
+      ) : (
+        // </Link>
+        <p className="text-center text-gray-500">No recipes found.</p>
       )}
     </section>
   );
 };
 
-export default AdDetails;
+export default AllAdverts;
